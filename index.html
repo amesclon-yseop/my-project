@@ -28,250 +28,329 @@
         </ul>
       </header>
       <section>
-        Yseop Savvy API
-==============
+        <h1>
+<a id="yseop-savvy-api" class="anchor" href="#yseop-savvy-api" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Yseop Savvy API</h1>
+
+<p>​
+<strong>Yseop Savvy API</strong> provides some tools to understand graphs, diagrams and charts, by generating clear and intelligible descriptions. Those texts are not technical, they simply highlight the major graph variations, without trying to speculate on the reasons for these changes. This API is mainly meant for BI purposes but can be used in various sectors, as it is flexible and not semantically bound to a specific domain.
 ​
-**Yseop Savvy API** provides some tools to understand graphs, diagrams and charts, by generating clear and intelligible descriptions. Those texts are not technical, they simply highlight the major graph variations, without trying to speculate on the reasons for these changes. This API is mainly meant for BI purposes but can be used in various sectors, as it is flexible and not semantically bound to a specific domain.
-​
- For now, it already has been integrated in **Yseop Savvy for Qlik** (plugin for Qlik Sense Desktop), and **Yseop Savvy for Microsoft Excel** (add-in for Microsoft Office 2007 and further).
- 
-----------
-​
+ For now, it already has been integrated in <strong>Yseop Savvy for Qlik</strong> (plugin for Qlik Sense Desktop), and <strong>Yseop Savvy for Microsoft Excel</strong> (add-in for Microsoft Office 2007 and further).</p>
+
+<hr>
+
+<p>​
 Plan:
 ​
-[TOC]
-​
-----------
-​
-General Functioning
--------------
-​
-Yseop Savvy API is a **REST API**[^restapi] .
-​
-Header Parameters
--------------
-​
-### Security
-​
-The API needs a **Basic Authentication**. The *login* is the JWT token you've been given on [Yseop Savvy's Website](https://savvy.yseop.com/download/). If you don't have any yet, please go get one. The *password* must stay empty.
-​
-```
- Authorisation="Basic myKey:"
-```
-​
-### Input Type
-​
-You need to indicate the input format, which is always *json*:
-```
- Content-Type="application/json;charset=UTF-8"
-```
-​
-### Output Format
-​
-The output format has to be set as *html*:
-```
- Accept="text/html"
-```
-​
-Chart Description
--------------
-​
-#####  TOP LEVEL MODEL
-​
+[TOC]</p>
+
+<h2>
+<a id="" class="anchor" href="#" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>​</h2>
+
+<p>​</p>
+
+<h2>
+<a id="general-functioning" class="anchor" href="#general-functioning" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>General Functioning</h2>
+
+<p>​
+Yseop Savvy API is a <strong>REST API</strong><a href="http://www.restapitutorial.com/lessons/whatisrest.html">^restapi</a> .
+​</p>
+
+<h2>
+<a id="header-parameters" class="anchor" href="#header-parameters" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Header Parameters</h2>
+
+<p>​</p>
+
+<h3>
+<a id="security" class="anchor" href="#security" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Security</h3>
+
+<p>​
+The API needs a <strong>Basic Authentication</strong>. The <em>login</em> is the JWT token you've been given on <a href="https://savvy.yseop.com/download/">Yseop Savvy's Website</a>. If you don't have any yet, please go get one. The <em>password</em> must stay empty.
+​</p>
+
+<pre><code> Authorisation="Basic myKey:"
+</code></pre>
+
+<p>​</p>
+
+<h3>
+<a id="input-type" class="anchor" href="#input-type" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Input Type</h3>
+
+<p>​
+You need to indicate the input format, which is always <em>json</em>:</p>
+
+<pre><code> Content-Type="application/json;charset=UTF-8"
+</code></pre>
+
+<p>​</p>
+
+<h3>
+<a id="output-format" class="anchor" href="#output-format" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Output Format</h3>
+
+<p>​
+The output format has to be set as <em>html</em>:</p>
+
+<pre><code> Accept="text/html"
+</code></pre>
+
+<p>​</p>
+
+<h2>
+<a id="chart-description" class="anchor" href="#chart-description" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Chart Description</h2>
+
+<p>​</p>
+
+<h5>
+<a id="top-level-model" class="anchor" href="#top-level-model" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>TOP LEVEL MODEL</h5>
+
+<p>​
 Top-level object that give all the information to the application.
 ​
 Field | Type| Description
 -------- | ---| ------
 extensionVersion| String| Version Number of the input.
-charts| [[ChartObject](#chart-object)]| List of charts to describe.
-​
-```
-{
+charts| [<a href="#chart-object">ChartObject</a>]| List of charts to describe.
+​</p>
+
+<pre><code>{
     "extensionVersion": "2",
     "charts": [ ... ]
 }
-```
-​
-##### CHART OBJECT
-​
+</code></pre>
+
+<p>​</p>
+
+<h5>
+<a id="chart-object" class="anchor" href="#chart-object" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CHART OBJECT</h5>
+
+<p>​
 Chart Information.
 ​
 Field | Type| Description
 -------- | ---| ------
-inputChart| [InputChartObject](#input-chart-object)| General information on the Chart.
-outputText| [OutputParamObject](#output-param-object)| Meta-data for preferences relating to the output text.
-dimensions| [[DimensionInfoObject](#dimension-info-object)]| There must be one Dimension block per dimension in the chart, 2 max.
-measures| [[MeasureInfoObject](#measure-info-object)]| There must be one Measure block per measure in the chart, 2 max.
-facts| [[FactObject](#fact-object)]| List of facts, representing the measures values for each dimension (or couple of dimensions).
+inputChart| <a href="#input-chart-object">InputChartObject</a>| General information on the Chart.
+outputText| <a href="#output-param-object">OutputParamObject</a>| Meta-data for preferences relating to the output text.
+dimensions| [<a href="#dimension-info-object">DimensionInfoObject</a>]| There must be one Dimension block per dimension in the chart, 2 max.
+measures| [<a href="#measure-info-object">MeasureInfoObject</a>]| There must be one Measure block per measure in the chart, 2 max.
+facts| [<a href="#fact-object">FactObject</a>]| List of facts, representing the measures values for each dimension (or couple of dimensions).
 ​
-​
-##### INPUT CHART OBJECT
-​
+​</p>
+
+<h5>
+<a id="input-chart-object" class="anchor" href="#input-chart-object" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>INPUT CHART OBJECT</h5>
+
+<p>​
 Field | Type| Description
 -------- | ---| ------
-type| [ChartTypeEnum](#chart-type-enum)| Format of the chart (choose among *Line chart*, *Bar chart* or *Pie chart*).
+type| <a href="#chart-type-enum">ChartTypeEnum</a>| Format of the chart (choose among <em>Line chart</em>, <em>Bar chart</em> or <em>Pie chart</em>).
 mainDimensionIndex| Integer| The index of the dimension which is considered as 'main' in the analysis. Only used when there are several dimensions.
-mainDimensionOrdered| Boolean| Deprecated. Use the property  *ordered* of each dimension description.
-multiSeriesType| [[MultiSeriesEnum](#multi-series-enum)]| How the data are related to each other (*Unrelated*, or *Value vs Reference*).
+mainDimensionOrdered| Boolean| Deprecated. Use the property  <em>ordered</em> of each dimension description.
+multiSeriesType| [<a href="#multi-series-enum">MultiSeriesEnum</a>]| How the data are related to each other (<em>Unrelated</em>, or <em>Value vs Reference</em>).
 disableInterpolation| Boolean | TODO
-currentSelection| [[SelectionObject](#fact-object)]| TODO
+currentSelection| [<a href="#fact-object">SelectionObject</a>]| TODO
 otherPartPresents| Boolean| TODO
 singularExceptions| [String]| TODO
 pluralExceptions| [String]| TODO
-​
-```
-{
-	"type": "LINE_CHART",
-	"mainDimensionIndex": 0,
-	"multiSeriesType": "UNRELATED"
+​</p>
+
+<pre><code>{
+    "type": "LINE_CHART",
+    "mainDimensionIndex": 0,
+    "multiSeriesType": "UNRELATED"
 }
-```
-​
-##### OUTPUT PARAM OBJECT
-​
+</code></pre>
+
+<p>​</p>
+
+<h5>
+<a id="output-param-object" class="anchor" href="#output-param-object" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>OUTPUT PARAM OBJECT</h5>
+
+<p>​
 Field | Type| Description
 -------- | ---| ------
-levelOfDetail| Integer| Number between *1* and *7*, where 1 produces the shortest text, and 7 the most verbose one.
-lang| [LangEnum](#lang-enum)| Language of the generated text.
-​
-```
-{ 
+levelOfDetail| Integer| Number between <em>1</em> and <em>7</em>, where 1 produces the shortest text, and 7 the most verbose one.
+lang| <a href="#lang-enum">LangEnum</a>| Language of the generated text.
+​</p>
+
+<pre><code>{ 
     "levelOfDetail":7,
     "lang":"EN" 
 }
-```
-​
-##### DIMENSION INFO OBJECT
-​
+</code></pre>
+
+<p>​</p>
+
+<h5>
+<a id="dimension-info-object" class="anchor" href="#dimension-info-object" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DIMENSION INFO OBJECT</h5>
+
+<p>​
 Field | Type| Description
 -------- | ---| ------
 label| String | The Dimension's name (can contain spaces).
 othersLabel| String| Sometimes data are grouped in a section 'Other' in graphs. You can define here a specific label for this section.
 cardinal| Integer| Number of elements in the Dimension.
-​
-```
-{ 
-	"label": "month",
-	"othersLabel": "Autres",
-	"cardinal": 12 
+​</p>
+
+<pre><code>{ 
+    "label": "month",
+    "othersLabel": "Autres",
+    "cardinal": 12 
 }
-```
-​
-##### MEASURE INFO OBJECT
-​
+</code></pre>
+
+<p>​</p>
+
+<h5>
+<a id="measure-info-object" class="anchor" href="#measure-info-object" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>MEASURE INFO OBJECT</h5>
+
+<p>​
 Field | Type| Description
 -------- | ---| ------
 label| String | The Dimension's name (can contain spaces).
 technicalLabel| Boolean| Sometimes data are grouped in a section 'Other' in graphs. You can define here a specific label for this section.
 defaultValue| String| Number of elements in the Dimension.
-meaningOfUp| [MeaningOfUpEnum](#meaning-of-up-enum)| Sometimes data are grouped in a section 'Other' in graphs. You can define here a specific label for this section.
+meaningOfUp| <a href="#meaning-of-up-enum">MeaningOfUpEnum</a>| Sometimes data are grouped in a section 'Other' in graphs. You can define here a specific label for this section.
 unit| String| Number of elements in the Dimension.
-​
-```
-{
-	"label": "sales",
-	"technicalLabel": false,
-	"defaultValue": "0",
-	"meaningOfUp": "GOOD",
-	"unit": "$" 
+​</p>
+
+<pre><code>{
+    "label": "sales",
+    "technicalLabel": false,
+    "defaultValue": "0",
+    "meaningOfUp": "GOOD",
+    "unit": "$" 
 }
-```
-​
-##### FACT OBJECT
-​
+</code></pre>
+
+<p>​</p>
+
+<h5>
+<a id="fact-object" class="anchor" href="#fact-object" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>FACT OBJECT</h5>
+
+<p>​
 Field | Type| Description
 -------- | ---| ------
-dimensions| [[MeasureValueObject](#measure-value-object)]| TODO
-measures|  [[DimensionValueObject](#dimension-value-object)]| TODO
-​
-```
-{ 
-	"dimensions":[{ "index": 0, "label": "01/01/2015", "position": 0 }],
-	"measures":[{ "index": 0, "value": "150" }] 
+dimensions| [<a href="#measure-value-object">MeasureValueObject</a>]| TODO
+measures|  [<a href="#dimension-value-object">DimensionValueObject</a>]| TODO
+​</p>
+
+<pre><code>{ 
+    "dimensions":[{ "index": 0, "label": "01/01/2015", "position": 0 }],
+    "measures":[{ "index": 0, "value": "150" }] 
 }
-```
-​
-##### SELECTION OBJECT
-​
-##### DIMENSION VALUE OBJECT
-​
+</code></pre>
+
+<p>​</p>
+
+<h5>
+<a id="selection-object" class="anchor" href="#selection-object" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>SELECTION OBJECT</h5>
+
+<p>​</p>
+
+<h5>
+<a id="dimension-value-object" class="anchor" href="#dimension-value-object" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>DIMENSION VALUE OBJECT</h5>
+
+<p>​
 Field | Type| Description
 -------- | ---| ------
 index| Integer| Index of the dimension in the 'Dimensions' array (indexes start at 0).
 label|  String | Used in text generation for identifying this point.
 position| Integer| The position is the 'coordinate' of the dimension point related to other points on this dimension. For instance January is the first month. Only relevant for ordered dimensions.
-​
-```
-{ 
-	"index": 0, 
-	"label": "01/01/2015", 
-	"position": 0 
+​</p>
+
+<pre><code>{ 
+    "index": 0, 
+    "label": "01/01/2015", 
+    "position": 0 
 }
-```
-​
-##### MEASURE VALUE OBJECT
-​
+</code></pre>
+
+<p>​</p>
+
+<h5>
+<a id="measure-value-object" class="anchor" href="#measure-value-object" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>MEASURE VALUE OBJECT</h5>
+
+<p>​
 ​
 Field | Type| Description
 -------- | ---| ------
 index| Integer| Index of the measure in the 'Measures' array (indexes start at 0).
 value|  String | The value for this measure (only numeric values are accepted).
-​
-```
-{
-	"index": 0, 
-	"value": "150"
+​</p>
+
+<pre><code>{
+    "index": 0, 
+    "value": "150"
 }
-```
-​
-​
-##### CHART TYPE ENUM
-​
+</code></pre>
+
+<p>​
+​</p>
+
+<h5>
+<a id="chart-type-enum" class="anchor" href="#chart-type-enum" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>CHART TYPE ENUM</h5>
+
+<p>​
 Value| Description
 ---- | ------
 LINE_CHART| Use to describe line or points charts.
 BAR_CHART| Use to describe bar or cluster charts.
 PIE_CHART| Use to describe pie charts.
 ​
-​
-##### MULTI SERIES ENUM
-​
+​</p>
+
+<h5>
+<a id="multi-series-enum" class="anchor" href="#multi-series-enum" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>MULTI SERIES ENUM</h5>
+
+<p>​
 Value| Description
 ---- | ------
 LINE_CHART| Use to describe line or points charts.
 BAR_CHART| Use to describe bar or cluster charts.
 PIE_CHART| Use to describe pie charts.
-​
-##### LANG ENUM
-​
+​</p>
+
+<h5>
+<a id="lang-enum" class="anchor" href="#lang-enum" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>LANG ENUM</h5>
+
+<p>​
 Value| Description
 ---- | ------
 EN| English
-​
-##### MEANING OF UP ENUM
-​
+​</p>
+
+<h5>
+<a id="meaning-of-up-enum" class="anchor" href="#meaning-of-up-enum" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>MEANING OF UP ENUM</h5>
+
+<p>​
 Value| Description
 ---- | ------
 LINE_CHART| Use to describe line or points charts.
 BAR_CHART| Use to describe bar or cluster charts.
 PIE_CHART| Use to describe pie charts.
 ​
+​</p>
+
+<h2>
+<a id="output-format-1" class="anchor" href="#output-format-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Output Format</h2>
+
+<p>​</p>
+
+<h2>
+<a id="-error-codes" class="anchor" href="#-error-codes" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a> Error Codes</h2>
+
+<p>​</p>
+
+<h2>
+<a id="troubleshooting" class="anchor" href="#troubleshooting" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Troubleshooting</h2>
+
+<p>​</p>
+
+<h2>
+<a id="bibliography" class="anchor" href="#bibliography" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Bibliography</h2>
+
+<p>​
 ​
-Output Format
--------------
-​
- Error Codes
--------------
-​
-Troubleshooting
--------------
-​
-Bibliography
--------------
-​
-​
-​
-  [^restapi]: http://www.restapitutorial.com/lessons/whatisrest.html
+​</p>
       </section>
       <footer>
         <p>This project is maintained by <a href="https://github.com/amesclon">amesclon</a></p>
